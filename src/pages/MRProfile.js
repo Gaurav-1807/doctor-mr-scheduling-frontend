@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import API from '../utils/api';
+import API, { getUploadUrl } from '../utils/api';
 import ImageCropper from '../components/ImageCropper';
 
 const MRProfile = () => {
@@ -18,8 +18,6 @@ const MRProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [showCropper, setShowCropper] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     fetchProfile();
@@ -132,7 +130,7 @@ const MRProfile = () => {
           <div className="relative group">
             {profileImage ? (
               <img 
-                src={`${API_URL}${profileImage}`}
+                src={getUploadUrl(profileImage)}
                 alt="Profile"
                 className="w-32 h-32 rounded-full object-cover border-4 border-blue-100"
               />

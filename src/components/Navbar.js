@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 
 const Navbar = ({ onMenuClick }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const profilePath = user?.role === 'doctor' ? '/doctor/profile' : '/mr/profile';
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   
   const [notificationCount, setNotificationCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -209,7 +208,7 @@ const Navbar = ({ onMenuClick }) => {
           <Link to={profilePath} className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100">
             {user?.profileImage ? (
               <img 
-                src={`${API_URL}${user.profileImage}`}
+                src={getUploadUrl(user.profileImage)}
                 alt={user.name}
                 className="w-8 h-8 rounded-full object-cover"
               />

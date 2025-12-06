@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import API from '../utils/api';
+import API, { getUploadUrl } from '../utils/api';
 
 const DoctorDashboardEnhanced = () => {
   const { user } = useContext(AuthContext);
@@ -15,8 +15,6 @@ const DoctorDashboardEnhanced = () => {
   const [frequentVisitors, setFrequentVisitors] = useState([]);
   const [weeklyStats, setWeeklyStats] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     fetchDashboardData();
@@ -273,7 +271,7 @@ const DoctorDashboardEnhanced = () => {
                     <div className="flex items-center space-x-4">
                       {mr?.profileImage ? (
                         <img 
-                          src={`${API_URL}${mr.profileImage}`}
+                          src={getUploadUrl(mr.profileImage)}
                           alt={mr?.name}
                           className="w-12 h-12 rounded-full object-cover"
                         />
