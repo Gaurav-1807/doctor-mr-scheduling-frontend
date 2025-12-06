@@ -121,7 +121,7 @@ const VisitTracking = () => {
       const res = await api.post('/visits', {
         appointment: selectedAppointment._id,
         doctor: doctorId,
-        visitType: 'scheduled',
+        visitType: 'general', // Valid: sample_drop, promotion, stock_check, inquiry_followup, general
         checkInLocation: location
       });
 
